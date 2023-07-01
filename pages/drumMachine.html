@@ -8,6 +8,19 @@
         <link rel="stylesheet" href="../assets/css/drumMachine.css" />
     </head>
     <body>
+        <div class="controls">
+            <button id="startRecordButton">start</button>
+            <button id="stopRecordButton">stop</button>
+            <input
+                type="range"
+                id="tempoSlider"
+                min="60"
+                max="240"
+                value="120"
+            />
+            <label for="tempoSlider">Tempo</label>
+            <button id="downloadButton">down</button>
+        </div>
         <div class="keys">
             <div data-key="65" class="key">
                 <kbd>A</kbd>
@@ -75,6 +88,11 @@
                 audio.currentTime = 0;
                 audio.play();
                 key.classList.add("playing");
+
+                //start the AudioContext on the first user interaction
+                if (!audioContext.state === "running") {
+                    audioContext.resume();
+                }
             }
 
             const keys = Array.from(document.querySelectorAll(".key"));
@@ -83,5 +101,6 @@
             );
             window.addEventListener("keydown", playSound);
         </script>
+        <script src="../assets/app.js"></script>
     </body>
 </html>
